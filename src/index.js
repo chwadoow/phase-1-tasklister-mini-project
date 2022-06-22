@@ -1,19 +1,22 @@
+
+
 document.addEventListener("DOMContentLoaded", () => {
-  let text = document.querySelector('input')
-  let form  = document.querySelector('form')
-  form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    addTodo(e.target['new-task-description'].value)
-    form.reset()
-  })
-  
+  const newTaskPriority = document.getElementById("new-task-priority");
+  const newTaskUl = document.getElementById("tasks");
+  const newTaskForm = document.getElementById("create-task-form");
+  const newTaskDescription = document.getElementById("new-task-description");
+    
+    newTaskForm.addEventListener("submit", createNewTask);
 });
-function addTodo(input){
-  let li = document.createElement('li')
-  let btn =document.createElement('button')
-  btn.textContent = 'x'
-  btn.addEventListener('click',(e)=>e.target.parentNode.remove())
-  li.textContent = `${input}`
-  document.querySelector('#list').appendChild(li)
-  li.appendChild(btn)
-}
+const appendNewTask = task => {
+  document.getElementById("tasks").appendChild(task);
+};
+
+const createNewTask = event => {
+  event.preventDefault();
+  const newTask = document.createElement("li");
+  const newTaskDescription = document.getElementById("new-task-description");
+  newTask.innerText = newTaskDescription.value;
+  appendNewTask(newTask);
+  event.target.reset();
+};
