@@ -1,24 +1,31 @@
-"use strict";
 document.addEventListener("DOMContentLoaded", () => {
-  // your code here
+  // initialize taskList class
+  const taskList = new TaskList();
+  //grab all the necessary DOM elements
 
-  // selecting elements from the DOM
-  const addNewTask = document.getElementById("create-task-form");
+  //form and relevant input fields
+  const newTaskForm = document.getElementById("create-task-form");
+  const newTaskDescription = document.getElementById("new-task-description");
+  const newTaskPriority = document.getElementById("new-task-priority");
 
-  //an event listener on the new taskform button
-  addNewTask.addEventListener("submit", createTask);
+  //ul where new tasks will live on the DOM
+  const taskUl = document.getElementById("tasks");
+
+  const renderApp = () => (taskUl.innerHTML = taskList.renderTasks());
+  //attach event listeners
+
+  newTaskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    taskList.createNewTask(newTaskDescription.value);
+    // reset form
+    e.target.reset();
+    renderApp();
+  });
+
+  taskUl.addEventListener("click", (e) => {
+    if (e.target.nodeName === "BUTTON") {
+      taskList.deleteTask(e.target.dataset.description);
+      renderApp();
+    }
+  });
 });
-const createTask = (event) => {
-  event.preventDefault();
-  //stop resubmission
-  const taskDescription = document.getElementById("new-task-description");
-  const newTaskList = document.createElement("li");
-  newTaskList.innerText = taskDescription.value;
-
-  appendTask(newTaskList);
-  event.target.reset();
-};
-
-const appendTask = (task) => {
-  document.getElementById("tasks").appendChild(task);
-};
