@@ -1,34 +1,24 @@
-
+"use strict";
 document.addEventListener("DOMContentLoaded", () => {
-  
+  // your code here
+
+  // selecting elements from the DOM
+  const addNewTask = document.getElementById("create-task-form");
+
+  //an event listener on the new taskform button
+  addNewTask.addEventListener("submit", createTask);
 });
-document.addEventListener("DOMContentLoaded", () => {
-  //grab all the necessary DOM elements
-
-  //form and relevant input fields
-  const newTaskForm = document.getElementById("create-task-form");
-  const newTaskDescription = document.getElementById("new-task-description");
-  const newTaskPriority = document.getElementById("new-task-priority");
-
-  //ul where new tasks will live on the DOM
-  const newTaskUl = document.getElementById("tasks");
-
-  //attach event listeners
-  newTaskForm.addEventListener("submit", createNewTask);
-
-});
-
-const createNewTask = event => {
+const createTask = (event) => {
   event.preventDefault();
-  //stop form from trying to submit
-  const newTaskDescription = document.getElementById("new-task-description");
-  const newTask = document.createElement("li");
-  newTask.innerText = newTaskDescription.value;
+  //stop resubmission
+  const taskDescription = document.getElementById("new-task-description");
+  const newTaskList = document.createElement("li");
+  newTaskList.innerText = taskDescription.value;
 
-  appendNewTask(newTask);
+  appendTask(newTaskList);
   event.target.reset();
 };
 
-const appendNewTask = task => {
+const appendTask = (task) => {
   document.getElementById("tasks").appendChild(task);
 };
